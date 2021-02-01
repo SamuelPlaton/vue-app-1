@@ -12,23 +12,36 @@
 
 <div id="app">
 
-  <div class="flex w-screen justify-center m-8">
-    <input class="border border-gray-light mx-4 px-2 py-1 rounded-lg" v-model="searchString" id="site-search" name="q"
-           placeholder="Chercher un livre">
-    <button class="border border-black px-2 py-1 rounded-lg" @click="">Ok</button>
+  <div class="flex justify-around items-center mx-auto my-8 lg:w-1/2">
+    <div>
+      <input class="border border-gray-light mx-4 px-2 py-1 rounded-lg" v-model="searchString" id="site-search" name="q"
+            placeholder="Search book">
+    </div>
+    <div>
+      <label for="category-select">Pick a category:</label>
+      <select name="categories" id="category-select" v-model="categorySelected">
+        <option value="">All</option>
+        <option value="Computers">Computers</option>
+        <option value="Education">Education</option>
+        <option value="Medical">Medical</option>
+        <option value="Patents">Patents</option>
+      </select>
+    </div>
   </div>
 
   <table v-if="filteredBooks.length > 0" class="flex justify-center w-screen">
-    <tr class="w-full">
-      <th class="border border-gray-light">Titre</th>
-      <th class="border border-gray-light">Auteur</th>
-      <th class="border border-gray-light">Catégorie</th>
+    <tr class="w-screen">
+      <th class="border border-gray-light">Title</th>
+      <th class="border border-gray-light">Author</th>
+      <th class="border border-gray-light">Category</th>
+      <th class="border border-gray-light">Link</th>
     </tr>
     <!-- A view with big photos and no text -->
-    <tr class="border border-gray-light" v-for="book in filteredBooks">
+    <tr class="border border-gray-light w-screen" v-for="book in filteredBooks">
       <td class="border border-gray-light">{{ book.volumeInfo.title }}</td>
       <td class="border border-gray-light"><p v-for="author in book.volumeInfo.authors">{{ author }}</p></td>
       <td class="border border-gray-light"><p v-for="category in book.volumeInfo.categories">{{ category }}</p></td>
+      <td class="border border-gray-light hover:underline"><a :href="book.volumeInfo.infoLink" target="_blank">See here</a></td>
     </tr>
   </table>
 

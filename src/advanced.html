@@ -13,26 +13,26 @@
 <div id="app">
 
   <div class="flex">
-    <a href="./index.html" class="mx-auto my-8 px-2 py-1 border border-gray-light rounded-lg">Back to our books</a>
+    <a href="./index.html" class="mx-auto my-8 px-2 py-1 border border-gray-light rounded-lg">Back to collection</a>
   </div>
 
   <div class='mx-4 flex flex-row justify-around flex-wrap'>
     <div>
       <p>Choose your favorites categories:</p>
       <div class='flex flex-row items-center'>
-        <input class="mr-2" type="checkbox" id="Computers" value="Computers" v-name="checkedCategories">
+        <input class="mr-2" type="checkbox" id="Computers" value="Computers" v-model="checkedCategories">
         <label for="Computers">Computers</label>
       </div>
       <div class='flex flex-row items-center'>
-        <input class="mr-2" type="checkbox" id="Education" value="Education" v-name="checkedCategories">
+        <input class="mr-2" type="checkbox" id="Education" value="Education" v-model="checkedCategories">
         <label for="Education">Education</label>
       </div>
       <div class='flex flex-row items-center'>
-        <input class="mr-2" type="checkbox" id="Medical" value="Medical" v-name="checkedCategories">
+        <input class="mr-2" type="checkbox" id="Medical" value="Medical" v-model="checkedCategories">
         <label for="Medical">Medical</label>
       </div>
       <div class='flex flex-row items-center'>
-        <input class="mr-2" type="checkbox" id="Patents" value="Patents" v-name="checkedCategories">
+        <input class="mr-2" type="checkbox" id="Patents" value="Patents" v-model="checkedCategories">
         <label for="Patents">Patents</label>
       </div>
     </div>
@@ -40,27 +40,66 @@
     <div>
       <p>Spoken Languages :</p>
       <div class='flex flex-row items-center'>
-        <input class="mr-2" type="checkbox" id="en" value="en" v-name="checkedLanguages">
+        <input class="mr-2" type="checkbox" id="en" value="en" v-model="checkedLanguages">
         <label for="en">English</label>
       </div>
       <div class='flex flex-row items-center'>
-        <input class="mr-2" type="checkbox" id="fr" value="fr" v-name="checkedLanguages">
+        <input class="mr-2" type="checkbox" id="fr" value="fr" v-model="checkedLanguages">
         <label for="fr">French</label>
       </div>
       <div class='flex flex-row items-center'>
-        <input class="mr-2" type="checkbox" id="es" value="es" v-name="checkedLanguages">
+        <input class="mr-2" type="checkbox" id="es" value="es" v-model="checkedLanguages">
         <label for="es">Spanish</label>
       </div>
     </div>
 
     <div>
-        <input class="mr-2" type="checkbox" id="matureContent" value="matureContent" v-name="matureContent">
+        <input class="mr-2" type="checkbox" id="matureContent" value="matureContent" v-model="matureContent">
         <label for="matureContent">Enable Mature Content</label>
     </div>
 
+    <div>
+      <label for="book-length">Book length:</label>
+      <select name="book-length" id="book-length" v-model="bookLength">
+        <option value="short">Short</option>
+        <option value="medium">Medium</option>
+        <option value="long">Long</option>
+      </select>
+    </div>
   </div>
 
+  <button class="flex border px-2 py-1 rounded-lg my-8 mx-auto" @click="findBooks()">Confirm</button>
 
+  <div class="m-8" v-if="booksFound.length > 0">
+    <p class="text-lg font-semibold mb-4"> Recommended : </p>
+    <div>
+      <p>{{booksFound[0]?.volumeInfo.title}}</p>
+      <p>{{booksFound[0]?.volumeInfo.averageRating}}/5 on {{booksFound[0]?.volumeInfo.ratingsCount}} votes</p>
+      <p v-for="category in booksFound[0]?.volumeInfo.categories">{{category}}</p>
+      <p>{{booksFound[0]?.volumeInfo.pageCount}} pages</p>
+      <a class="focus:underline font-semibold" :href="booksFound[0].volumeInfo.infoLink" target="_blank">See here</a>
+    </div>
+  </div>
+
+  <button v-if="booksFound.length > 0" class="flex border px-2 py-1 rounded-lg my-8 mx-auto" @click="showAll = true">Show all</button>
+
+  <div v-if="showAll === true">
+    <table class="flex justify-center w-screen">
+      <tr class="w-screen">
+        <th class="border border-gray-light">Title</th>
+        <th class="border border-gray-light">Author</th>
+        <th class="border border-gray-light">Category</th>
+        <th class="border border-gray-light">Link</th>
+      </tr>
+      <!-- A view with big photos and no text -->
+      <tr class="border border-gray-light w-screen" v-for="book in booksFound">
+        <td class="border border-gray-light">{{ book.volumeInfo.title }}</td>
+        <td class="border border-gray-light"><p v-for="author in book.volumeInfo.authors">{{ author }}</p></td>
+        <td class="border border-gray-light"><p v-for="category in book.volumeInfo.categories">{{ category }}</p></td>
+        <td class="border border-gray-light hover:underline"><a :href="book.volumeInfo.infoLink" target="_blank">See here</a></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>

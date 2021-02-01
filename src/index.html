@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <title>Search Books</title>
+
+</head>
+<body>
+
+<div id="app">
+
+  <div class="flex w-screen justify-center m-8">
+    <input class="border border-gray-light mx-4 px-2 py-1 rounded-lg" v-model="searchString" id="site-search" name="q"
+           placeholder="Chercher un livre">
+    <button class="border border-black px-2 py-1 rounded-lg" @click="">Ok</button>
+  </div>
+
+  <table v-if="filteredBooks.length > 0" class="flex justify-center w-screen">
+    <tr class="w-full">
+      <th class="border border-gray-light">Titre</th>
+      <th class="border border-gray-light">Auteur</th>
+      <th class="border border-gray-light">Catégorie</th>
+    </tr>
+    <!-- A view with big photos and no text -->
+    <tr class="border border-gray-light" v-for="book in filteredBooks">
+      <td class="border border-gray-light">{{ book.volumeInfo.title }}</td>
+      <td class="border border-gray-light"><p v-for="author in book.volumeInfo.authors">{{ author }}</p></td>
+      <td class="border border-gray-light"><p v-for="category in book.volumeInfo.categories">{{ category }}</p></td>
+    </tr>
+  </table>
+
+  <p v-if="filteredBooks.length === 0" class="w-full flex justify-center">No books available</p>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./scripts/home.js"></script>
+
+</body>
+</html>
+

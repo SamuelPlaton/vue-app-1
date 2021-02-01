@@ -28,7 +28,6 @@ new Vue({
     axios
       .get('https://www.googleapis.com/books/v1/volumes?q=search-terms&key=AIzaSyDb5RvxGkCOKziqW5juAkV4IT3aW25dN_Y&maxResults=40')
       .then(res => {
-        console.log(res.data.items[0]);
         this.books = res.data.items
       })
   }

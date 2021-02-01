@@ -41,7 +41,6 @@ new Vue({
           return 0;
         });
         this.booksFound = filteredRank;
-        console.log(filteredRank);
       }
     },
   beforeCreate() {

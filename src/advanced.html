@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <title>Search Books</title>
+
+</head>
+<body>
+
+<div id="app">
+
+  <div class="flex">
+    <a href="./index.html" class="mx-auto my-8 px-2 py-1 border border-gray-light rounded-lg">Back to our books</a>
+  </div>
+
+  <div class='mx-4 flex flex-row justify-around flex-wrap'>
+    <div>
+      <p>Choose your favorites categories:</p>
+      <div class='flex flex-row items-center'>
+        <input class="mr-2" type="checkbox" id="Computers" value="Computers" v-name="checkedCategories">
+        <label for="Computers">Computers</label>
+      </div>
+      <div class='flex flex-row items-center'>
+        <input class="mr-2" type="checkbox" id="Education" value="Education" v-name="checkedCategories">
+        <label for="Education">Education</label>
+      </div>
+      <div class='flex flex-row items-center'>
+        <input class="mr-2" type="checkbox" id="Medical" value="Medical" v-name="checkedCategories">
+        <label for="Medical">Medical</label>
+      </div>
+      <div class='flex flex-row items-center'>
+        <input class="mr-2" type="checkbox" id="Patents" value="Patents" v-name="checkedCategories">
+        <label for="Patents">Patents</label>
+      </div>
+    </div>
+
+    <div>
+      <p>Spoken Languages :</p>
+      <div class='flex flex-row items-center'>
+        <input class="mr-2" type="checkbox" id="en" value="en" v-name="checkedLanguages">
+        <label for="en">English</label>
+      </div>
+      <div class='flex flex-row items-center'>
+        <input class="mr-2" type="checkbox" id="fr" value="fr" v-name="checkedLanguages">
+        <label for="fr">French</label>
+      </div>
+      <div class='flex flex-row items-center'>
+        <input class="mr-2" type="checkbox" id="es" value="es" v-name="checkedLanguages">
+        <label for="es">Spanish</label>
+      </div>
+    </div>
+
+    <div>
+        <input class="mr-2" type="checkbox" id="matureContent" value="matureContent" v-name="matureContent">
+        <label for="matureContent">Enable Mature Content</label>
+    </div>
+
+  </div>
+
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./scripts/advanced.js"></script>
+
+</body>
+</html>
+
